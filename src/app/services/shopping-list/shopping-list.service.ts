@@ -1,5 +1,5 @@
+import { Ingredient } from "./../../../models/ingredient.model";
 import { Injectable } from "@angular/core";
-import { Ingredient } from "src/models/ingredient.model";
 
 import { Subject } from "rxjs";
 
@@ -17,9 +17,23 @@ export class ShoppingListService {
     return this.ingredients.slice();
   }
 
+  getIngredient(index: number) {
+    return this.ingredients[index];
+  }
+
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
     this.ingredientsChanged.next(this.getIngredients());
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index);
+    return this.ingredientsChanged.next(this.ingredients.slice());
   }
 
   addIngredients(ingredients: Ingredient[]) {
