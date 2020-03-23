@@ -1,7 +1,7 @@
 import { ShoppingListService } from "./services/shopping-list/shopping-list.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -15,7 +15,7 @@ import { HeaderComponent } from "./header/header.component";
 import { RecipesComponent } from "./recipe-book/recipes/recipes.component";
 import { DropdownDirective } from "./directives/dropdown/dropdown.directive";
 import { RecipeStartComponent } from "./recipe-book/recipe-start/recipe-start.component";
-import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+import { RecipeEditComponent } from "./recipe-book/recipe-edit/recipe-edit.component";
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.compo
     RecipeStartComponent,
     RecipeEditComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]
 })
