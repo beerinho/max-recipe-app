@@ -29,4 +29,8 @@ export class RecipeDetailComponent implements OnInit {
   onAddToSL(ingredients: Ingredient[]) {
     this.recipeService.addToShoppingList(ingredients);
   }
+
+  onDeleteRecipe(index: number) {
+    this.recipeService.deleteRecipe(index);
+  }
 }
