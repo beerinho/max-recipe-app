@@ -1,3 +1,4 @@
+import { RecipeService } from "./services/recipe/recipe.service";
 import { ShoppingListService } from "./services/shopping-list/shopping-list.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -32,7 +33,7 @@ import { RecipeEditComponent } from "./recipe-book/recipe-edit/recipe-edit.compo
     RecipeEditComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService, RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
