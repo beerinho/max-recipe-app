@@ -10,7 +10,9 @@
           >
             Save
           </button>
-          <button type="button" class="btn btn-danger">Cancel</button>
+          <button (click)="onCancel()" type="button" class="btn btn-danger">
+            Cancel
+          </button>
         </div>
       </div>
       <div class="row">
@@ -37,15 +39,16 @@
               formControlName="imagePath"
               id="imagePath"
               class="form-control"
+              #imgPath
             />
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="imgPath.value">
         <div class="col-xs-12">
           <img
-            [src]="recipeForm.get('imagePath')"
-            [alt]="recipeForm.get('name')"
+            [src]="imgPath.value"
+            alt="preview-image"
             class="img-responsive"
           />
         </div>
@@ -83,7 +86,13 @@
               />
             </div>
             <div class="col-xs-2">
-              <button class="btn btn-danger">X</button>
+              <button
+                class="btn btn-danger"
+                type="button"
+                (click)="onDeleteIngredient(i)"
+              >
+                X
+              </button>
             </div>
           </div>
           <hr />
