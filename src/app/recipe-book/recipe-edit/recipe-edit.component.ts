@@ -1,7 +1,14 @@
 import { RecipeService } from "./../../services/recipe/recipe.service";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
-import { FormGroup, FormControl, FormArray } from "@angular/forms";
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  Validators,
+  NgForm
+} from "@angular/forms";
+import { Recipe } from "src/models/recipe.model";
 
 @Component({
   selector: "app-recipe-edit",
@@ -46,22 +53,41 @@ export class RecipeEditComponent implements OnInit {
         recipe["ingredients"].forEach(ingredient => {
           recipeIngredients.push(
             new FormGroup({
-              name: new FormControl(ingredient.name),
-              amount: new FormControl(ingredient.amount)
+              name: new FormControl(ingredient.name, Validators.required),
+              amount: new FormControl(ingredient.amount, [
+                Validators.required,
+                Validators.pattern(/^(\d+(\.\d{0,2})?|\.?\d{1,2})$/)
+              ])
             })
           );
         });
       }
     }
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName),
-      imagePath: new FormControl(recipeImagePath),
-      description: new FormControl(recipeDescription),
+      name: new FormControl(recipeName, Validators.required),
+      imagePath: new FormControl(recipeImagePath, Validators.required),
+      description: new FormControl(recipeDescription, Validators.required),
       ingredients: recipeIngredients
     });
   }
 
-  onSubmit() {
-    console.log(this.recipeForm);
+  onAddIngredient() {
+    (<FormArray>this.recipeForm.get("ingredients")).push(
+      new FormGroup({
+        name: new FormControl(null, Validators.required),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^(\d+(\.\d{0,2})?|\.?\d{1,2})$/)
+        ])
+      })
+    );
+  }
+
+  onSubmit(form: FormGroup) {
+    if (this.isEditMode) {
+      this.recipeService.updateRecipe(this.id, form.value);
+    } else {
+      this.recipeService.addRecipe(form.value);
+    }
   }
 }
